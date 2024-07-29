@@ -1,8 +1,8 @@
 class DriveUtils {
-  baseUrl = 'https://www.googleapis.com/drive/v3';
+  static baseUrl = 'https://www.googleapis.com/drive/v3';
 
   static async getFilesInDirectory(directoryId, accessToken) {
-    let endpointUrl = baseUrl + '/files';
+    let endpointUrl = this.baseUrl + '/files';
       
     console.log('[drive_getFilesInDirectory(directoryId)] before setting params');
     const params = {
@@ -24,7 +24,7 @@ class DriveUtils {
         }
       );
       if(response.status != 200) {
-        throw new Error(`[drive_getFilesInDirectory()] error. response:`, response);
+        throw new Error('[drive_getFilesInDirectory()] error. response:' + response);
       }
       const data = await response.json();
       console.log(`[drive_getFilesInDirectory()]  data returned from drive: ${JSON.stringify(data, null, 2)}`);
@@ -36,7 +36,7 @@ class DriveUtils {
   }
 
   static async setPermission(id, options, accessToken) {
-    const endpointUrl = baseUrl + `files/${id}/permissions`;
+    const endpointUrl = this.baseUrl + `/files/${id}/permissions`;
     const body = {
       'role': (options && options.hasOwnProperty('role')) ? options.role : 'reader',
       'type': (options && options.hasOwnProperty('type')) ? options.type : 'anyone'
@@ -64,7 +64,7 @@ class DriveUtils {
   }
 
   static async getLink(id, accessToken) {
-    const endpointUrl = baseUrl + `/${id}?fields=webViewLink`;
+    const endpointUrl = this.baseUrl + `/files/${id}?fields=webViewLink`;
 
     try {
       const response = await fetch(

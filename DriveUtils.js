@@ -1,5 +1,5 @@
 class DriveUtils {
-  static baseUrl = 'https://www.googleapis.com/drive/v3';
+  baseUrl = 'https://www.googleapis.com/drive/v3';
 
   static async getFilesInDirectory(directoryId, accessToken) {
     let endpointUrl = this.baseUrl + '/files';

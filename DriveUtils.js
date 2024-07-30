@@ -1,10 +1,10 @@
 class DriveUtils {
-  static baseUrl = 'https://www.googleapis.com/drive/v3';
+  baseUrl = 'https://www.googleapis.com/drive/v3';
 
   static async getFilesInDirectory(directoryId, accessToken) {
     let endpointUrl = this.baseUrl + '/files';
       
-    console.log('[drive_getFilesInDirectory(directoryId)] before setting params');
+    console.log('[getFilesInDirectory(directoryId)] before setting params');
     const params = {
       q: `'${directoryId}' in parents and trashed = false`,
       fields: 'nextPageToken, files(id, name)',
@@ -12,7 +12,7 @@ class DriveUtils {
     };
 
     const queryString = Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`).join('&');
-    console.log('[drive_getFilesInDirectory(directoryId)] queryString:', queryString);
+    console.log('[getFilesInDirectory(directoryId)] queryString:', queryString);
     const url = `${endpointUrl}?${queryString}`;
 
     try {
@@ -24,14 +24,14 @@ class DriveUtils {
         }
       );
       if(response.status != 200) {
-        throw new Error('[drive_getFilesInDirectory()] error. response:' + response);
+        throw new Error('[getFilesInDirectory()] error. response:' + response);
       }
       const data = await response.json();
-      console.log(`[drive_getFilesInDirectory()]  data returned from drive: ${JSON.stringify(data, null, 2)}`);
+      console.log(`[getFilesInDirectory()]  data returned from drive: ${JSON.stringify(data, null, 2)}`);
       return (!data.files ||  data.files.length === 0) ? null : data.files;
 
     } catch(error) {
-      console.error(`[drive_getFilesInDirectory()] error. Error: ${error.message}`);
+      console.error(`[getFilesInDirectory()] error. Error: ${error.message}`);
     }
   }
 
@@ -59,7 +59,7 @@ class DriveUtils {
         throw new Error('Failed to update permissions: ' + response.statusText);
       }
     } catch (error) {
-      console.error('[drive_setPermission(id, options)] Error creating link:', error);
+      console.error('[setPermission(id, options)] Error creating link:', error);
     }
   }
 

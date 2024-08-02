@@ -24,14 +24,14 @@ class DriveUtils {
         }
       );
       if(response.status != 200) {
-        throw new Error('[getFilesInDirectory()] error. response:' + response);
+        throw new Error('[getFilesInDirectory()] error. response:' + JSON.stringify(response));
       }
       const data = await response.json();
       console.log(`[getFilesInDirectory()]  data returned from drive: ${JSON.stringify(data, null, 2)}`);
       return (!data.files ||  data.files.length === 0) ? null : data.files;
 
     } catch(error) {
-      console.error(`[getFilesInDirectory()] error. Error: ${error.message}`);
+      console.error(`[getFilesInDirectory()] error. Error:`, error);
     }
   }
 

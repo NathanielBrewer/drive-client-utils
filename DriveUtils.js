@@ -1,8 +1,8 @@
 class DriveUtils {
-  baseUrl = 'https://www.googleapis.com/drive/v3';
+  static baseUrl = 'https://www.googleapis.com/drive/v3';
 
   static async getFilesInDirectory(directoryId, accessToken) {
-    let endpointUrl = this.baseUrl + '/files';
+    let endpointUrl = DriveUtils.baseUrl + '/files';
       
     console.log('[getFilesInDirectory(directoryId)] before setting params');
     const params = {
@@ -36,7 +36,7 @@ class DriveUtils {
   }
 
   static async setPermission(id, options, accessToken) {
-    const endpointUrl = this.baseUrl + `/files/${id}/permissions`;
+    const endpointUrl = DriveUtils.baseUrl + `/files/${id}/permissions`;
     const body = {
       'role': (options && options.hasOwnProperty('role')) ? options.role : 'reader',
       'type': (options && options.hasOwnProperty('type')) ? options.type : 'anyone'
@@ -64,7 +64,7 @@ class DriveUtils {
   }
 
   static async getLink(id, accessToken) {
-    const endpointUrl = this.baseUrl + `/files/${id}?fields=webViewLink`;
+    const endpointUrl = DriveUtils.baseUrl + `/files/${id}?fields=webViewLink`;
 
     try {
       const response = await fetch(

@@ -88,6 +88,4 @@ class DriveUtils {
       return null;
     }
   }
-
-  // TODO: ResumableUpload
 }
